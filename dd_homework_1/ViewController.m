@@ -38,82 +38,10 @@
     }
 }
 - (void) printSelectNumber{
-    switch (counter) {
-        case 0:
-            _screen.text=[NSString stringWithFormat:@"%d",(int)SelectNumber];
-            break;
-        case 1:
-            _screen.text=[NSString stringWithFormat:@"%.1f",SelectNumber];
-            break;
-            
-        case 2:
-            _screen.text=[NSString stringWithFormat:@"%.2f",SelectNumber];
-            break;
-        case 3:
-            _screen.text=[NSString stringWithFormat:@"%.3f",SelectNumber];
-            break;
-        case 4:
-            _screen.text=[NSString stringWithFormat:@"%.4f",SelectNumber];
-            break;
-        case 5:
-            _screen.text=[NSString stringWithFormat:@"%.5f",SelectNumber];
-            break;
-        case 6:
-            _screen.text=[NSString stringWithFormat:@"%.6f",SelectNumber];
-            break;
-        case 7:
-            _screen.text=[NSString stringWithFormat:@"%.7f",SelectNumber];
-            break;
-        case 8:
-            _screen.text=[NSString stringWithFormat:@"%.8f",SelectNumber];
-            break;
-        default:
-            _screen.text=[NSString stringWithFormat:@"%f",SelectNumber];
-            
-            break;
-    }
-    
+    NSString *myString =[[NSNumber numberWithDouble:SelectNumber]stringValue];
+         _screen.text=myString;
 }
-- (void) printResult{
-    
-    switch (counterMax) {
-        case 0:
-            if (RunningTotal - (int)RunningTotal == 0) {
-                _screen.text=[NSString stringWithFormat:@"%d",(int)RunningTotal];
-            } else
-            _screen.text=[NSString stringWithFormat:@"%f",RunningTotal];
-            break;
-        case 1:
-            _screen.text=[NSString stringWithFormat:@"%.1f",RunningTotal];
-            break;
-            
-        case 2:
-            _screen.text=[NSString stringWithFormat:@"%.2f",RunningTotal];
-            break;
-        case 3:
-            _screen.text=[NSString stringWithFormat:@"%.3f",RunningTotal];
-            break;
-        case 4:
-            _screen.text=[NSString stringWithFormat:@"%.4f",RunningTotal];
-            break;
-        case 5:
-            _screen.text=[NSString stringWithFormat:@"%.5f",RunningTotal];
-            break;
-        case 6:
-            _screen.text=[NSString stringWithFormat:@"%.6f",RunningTotal];
-            break;
-        case 7:
-            _screen.text=[NSString stringWithFormat:@"%.7f",RunningTotal];
-            break;
-        case 8:
-            _screen.text=[NSString stringWithFormat:@"%.8f",RunningTotal];
-            break;
-        default:
-            _screen.text=[NSString stringWithFormat:@"%f",RunningTotal];
-           
-            break;
-    }
-}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
@@ -140,7 +68,7 @@
         SelectNumber=SelectNumber*10+1;
     }
     [self printSelectNumber];
-   // _screen.text=[NSString stringWithFormat:@"%f",SelectNumber];
+    
 }
 
 - (IBAction)button2:(id)sender {
@@ -154,7 +82,7 @@
         SelectNumber=SelectNumber+2;
     }
     [self printSelectNumber];
-       // _screen.text=[NSString stringWithFormat:@"%f",SelectNumber];
+    
 }
 
 - (IBAction)button3:(id)sender {
@@ -243,12 +171,10 @@
 
 - (IBAction)button0:(id)sender {
     if(isFloat){
-      //  SelectNumber=SelectNumber+0*pow(10, -(counter+1));
         counter++;
     }
     else{
         SelectNumber=SelectNumber*10;
-      //  SelectNumber=SelectNumber+2;
     }
     [self printSelectNumber];
 }
@@ -257,7 +183,6 @@
     Method=0;
     RunningTotal=0;
     SelectNumber=0;
-    counterMax=0;
     counter=0;
     isFloat=false;
     _screen.text =[NSString stringWithFormat:@"0"];
@@ -273,14 +198,14 @@
             [self result:Method];
         
     }
-    if (counter>counterMax) {
-        counterMax=counter;
-    }
+
+    NSString *myString =[[NSNumber numberWithDouble:RunningTotal]stringValue];
+    _screen.text=myString;
+
     Method=0;
     SelectNumber=0;
-    [self printResult];
-        counter=0;
-//_screen.text=[NSString stringWithFormat:@"%f",RunningTotal];
+    counter=0;
+    
 }
 
 - (IBAction)buttonTimes:(id)sender {
@@ -293,7 +218,6 @@
     
     Method=1;
     SelectNumber=0;
-    counterMax=counter;
     counter=0;
     isFloat=false;
 }
@@ -309,7 +233,6 @@
     
     Method=2;
     SelectNumber=0;
-    counterMax=counter;
     counter=0;
     isFloat=false;
 }
@@ -326,7 +249,6 @@
     
     Method=3;
     SelectNumber=0;
-    counterMax=counter;
     counter=0;
     isFloat=false;
 }
@@ -341,7 +263,6 @@
     
     Method=4;
     SelectNumber=0;
-    counterMax=counter;
     counter=0;
     isFloat=false;
 }
@@ -361,19 +282,19 @@
 - (IBAction)buttonPlusMinus:(id)sender {
     if (SelectNumber ==0) {
         RunningTotal =-RunningTotal;
-        if (RunningTotal-(int)RunningTotal ==0)
-            _screen.text = [NSString stringWithFormat:@"%.d",(int)RunningTotal];
-        else
-            _screen.text = [NSString stringWithFormat:@"%.2f",RunningTotal];
+        
+        
     } else  {
         SelectNumber=-SelectNumber;
-        _screen.text=[NSString stringWithFormat:@"%f",SelectNumber];
+        [self printSelectNumber];
     }
 }
 
 - (IBAction)buttonComma:(id)sender {
     isFloat=true;
-//_screen.text = [NSString stringWithFormat:@"%f,",SelectNumber];
+    NSString *myString =[[NSNumber numberWithDouble:SelectNumber]stringValue];
+    NSString* result = [myString stringByAppendingString: @"."];
+    _screen.text = result;
 }
 
 @end

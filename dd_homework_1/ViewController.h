@@ -13,13 +13,11 @@ double SelectNumber;
 double RunningTotal;
 BOOL isFloat;
 int counter;
-int counterMax;
 @interface ViewController : UIViewController
 
 @property (strong, nonatomic) IBOutlet UILabel *screen;
 
 - (void) result:(double)method;
-- (void) printResult;
 - (void) printSelectNumber;
 - (IBAction)button1:(id)sender;
 - (IBAction)button2:(id)sender;
